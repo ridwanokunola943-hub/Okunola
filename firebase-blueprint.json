@@ -1,0 +1,315 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "Registered user account on Bigridz Local",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "fullName": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "username": { "type": "string" },
+        "location": { "type": "string" },
+        "accountType": { "type": "string", "enum": ["customer", "provider", "admin"] },
+        "photoURL": { "type": "string" },
+        "emailVerified": { "type": "boolean" },
+        "phoneVerified": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["fullName", "email", "accountType"]
+    },
+    "Provider": {
+      "title": "Service Provider",
+      "description": "Approved or pending business/provider profile in Malete and surrounding areas",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "ownerId": { "type": "string" },
+        "businessName": { "type": "string" },
+        "ownerName": { "type": "string" },
+        "phone": { "type": "string" },
+        "email": { "type": "string" },
+        "category": { "type": "string" },
+        "description": { "type": "string" },
+        "location": { "type": "string" },
+        "address": { "type": "string" },
+        "distanceKm": { "type": "number" },
+        "logoUrl": { "type": "string" },
+        "coverUrl": { "type": "string" },
+        "openingHours": { "type": "string" },
+        "isOpen": { "type": "boolean" },
+        "homeServiceAvailable": { "type": "boolean" },
+        "deliveryAvailable": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected", "suspended"] },
+        "isVerified": { "type": "boolean" },
+        "rating": { "type": "number" },
+        "reviewCount": { "type": "number" },
+        "followerCount": { "type": "number" },
+        "paymentInfo": { "type": "string" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["ownerId", "businessName", "category", "status"]
+    },
+    "Category": {
+      "title": "Service Category",
+      "description": "Category for classifying local services and businesses",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "icon": { "type": "string" },
+        "description": { "type": "string" },
+        "isActive": { "type": "boolean" },
+        "order": { "type": "number" }
+      },
+      "required": ["name", "slug"]
+    },
+    "Service": {
+      "title": "Provider Service",
+      "description": "Service offered by a verified or active provider",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "providerId": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "pricingType": { "type": "string", "enum": ["fixed", "starting_from", "custom_quote"] },
+        "duration": { "type": "string" },
+        "homeService": { "type": "boolean" },
+        "deliveryOption": { "type": "boolean" },
+        "bookingOption": { "type": "boolean" },
+        "category": { "type": "string" },
+        "imageUrl": { "type": "string" }
+      },
+      "required": ["providerId", "name", "price"]
+    },
+    "Product": {
+      "title": "Product / Food Menu Item",
+      "description": "Product or meal item for food vendors, stores, and boutiques",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "providerId": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "price": { "type": "number" },
+        "imageUrl": { "type": "string" },
+        "isAvailable": { "type": "boolean" },
+        "category": { "type": "string" },
+        "addOns": { "type": "string" }
+      },
+      "required": ["providerId", "name", "price"]
+    },
+    "Post": {
+      "title": "Provider Post",
+      "description": "Social feed update or promotional deal posted by a local provider",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "providerId": { "type": "string" },
+        "providerName": { "type": "string" },
+        "providerLogo": { "type": "string" },
+        "content": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "promotionTag": { "type": "string" },
+        "price": { "type": "number" },
+        "location": { "type": "string" },
+        "likesCount": { "type": "number" },
+        "commentsCount": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["providerId", "content"]
+    },
+    "Order": {
+      "title": "Customer Food/Product Order",
+      "description": "Orders placed for food or local shop products",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "customerId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "providerId": { "type": "string" },
+        "providerName": { "type": "string" },
+        "items": { "type": "string" },
+        "totalAmount": { "type": "number" },
+        "orderType": { "type": "string", "enum": ["delivery", "pickup"] },
+        "deliveryAddress": { "type": "string" },
+        "notes": { "type": "string" },
+        "paymentMethod": { "type": "string", "enum": ["cash", "paystack_online"] },
+        "paymentStatus": { "type": "string", "enum": ["pending", "paid", "refunded"] },
+        "paymentRef": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "accepted", "preparing", "ready", "out_for_delivery", "completed", "rejected"] },
+        "rejectionReason": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["customerId", "providerId", "totalAmount", "status"]
+    },
+    "Booking": {
+      "title": "Service Booking & Come-To-Me Request",
+      "description": "Appointment bookings or home-service visits (barber, cleaning, cooking, laundry, beauty)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "customerId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerPhone": { "type": "string" },
+        "providerId": { "type": "string" },
+        "providerName": { "type": "string" },
+        "serviceId": { "type": "string" },
+        "serviceName": { "type": "string" },
+        "date": { "type": "string" },
+        "time": { "type": "string" },
+        "isHomeService": { "type": "boolean" },
+        "locationAddress": { "type": "string" },
+        "notes": { "type": "string" },
+        "specialInstructions": { "type": "string" },
+        "price": { "type": "number" },
+        "paymentMethod": { "type": "string", "enum": ["cash", "paystack_online"] },
+        "paymentStatus": { "type": "string", "enum": ["pending", "paid"] },
+        "status": { "type": "string", "enum": ["requested", "accepted", "confirmed", "in_progress", "completed", "declined", "cancelled"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["customerId", "providerId", "serviceName", "date", "status"]
+    },
+    "Review": {
+      "title": "Customer Review",
+      "description": "Verified rating and written review left by a customer after a completed transaction",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "providerId": { "type": "string" },
+        "customerId": { "type": "string" },
+        "customerName": { "type": "string" },
+        "customerPhoto": { "type": "string" },
+        "transactionId": { "type": "string" },
+        "rating": { "type": "number" },
+        "comment": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "isModerated": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["providerId", "customerId", "rating", "comment"]
+    },
+    "Message": {
+      "title": "Chat Message",
+      "description": "Direct message exchanged between customer and service provider",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "conversationId": { "type": "string" },
+        "senderId": { "type": "string" },
+        "recipientId": { "type": "string" },
+        "text": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "serviceRef": { "type": "string" },
+        "bookingRef": { "type": "string" },
+        "orderRef": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["conversationId", "senderId", "text"]
+    },
+    "Notification": {
+      "title": "User Notification",
+      "description": "Event notifications for bookings, orders, messages, or provider posts",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "body": { "type": "string" },
+        "type": { "type": "string" },
+        "read": { "type": "boolean" },
+        "link": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["userId", "title", "body"]
+    },
+    "Report": {
+      "title": "Safety & Content Report",
+      "description": "User submission reporting scam, harassment, fake business, or inappropriate content",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "reporterId": { "type": "string" },
+        "targetType": { "type": "string", "enum": ["provider", "customer", "post", "review", "message"] },
+        "targetId": { "type": "string" },
+        "reason": { "type": "string" },
+        "details": { "type": "string" },
+        "status": { "type": "string", "enum": ["open", "investigating", "resolved", "dismissed"] },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["reporterId", "targetType", "targetId", "reason"]
+    },
+    "Setting": {
+      "title": "Platform Setting",
+      "description": "Admin platform-wide configuration parameter",
+      "type": "object",
+      "properties": {
+        "key": { "type": "string" },
+        "value": { "type": "string" }
+      },
+      "required": ["key"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User account profiles"
+    },
+    "/providers/{providerId}": {
+      "schema": { "$ref": "#/entities/Provider" },
+      "description": "Verified and pending service provider profiles"
+    },
+    "/categories/{categoryId}": {
+      "schema": { "$ref": "#/entities/Category" },
+      "description": "Categories managed by admin"
+    },
+    "/services/{serviceId}": {
+      "schema": { "$ref": "#/entities/Service" },
+      "description": "Services listed by providers"
+    },
+    "/products/{productId}": {
+      "schema": { "$ref": "#/entities/Product" },
+      "description": "Food menu items and shop products"
+    },
+    "/posts/{postId}": {
+      "schema": { "$ref": "#/entities/Post" },
+      "description": "Provider community posts and promotional feed"
+    },
+    "/orders/{orderId}": {
+      "schema": { "$ref": "#/entities/Order" },
+      "description": "Food and product purchase orders"
+    },
+    "/bookings/{bookingId}": {
+      "schema": { "$ref": "#/entities/Booking" },
+      "description": "Appointments and Come-to-Me home service requests"
+    },
+    "/reviews/{reviewId}": {
+      "schema": { "$ref": "#/entities/Review" },
+      "description": "Customer reviews and ratings"
+    },
+    "/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/Message" },
+      "description": "Real-time chat messages"
+    },
+    "/notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/Notification" },
+      "description": "User notifications"
+    },
+    "/reports/{reportId}": {
+      "schema": { "$ref": "#/entities/Report" },
+      "description": "Safety violation and scam reports"
+    },
+    "/settings/{settingId}": {
+      "schema": { "$ref": "#/entities/Setting" },
+      "description": "System settings and commission fees"
+    }
+  }
+}
